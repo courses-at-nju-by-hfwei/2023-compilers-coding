@@ -23,8 +23,12 @@ dependencies {
 // "-Werror"
 generateGrammarSource {
     arguments += ["-Xlog", "-visitor"]
+    // see https://discuss.gradle.org/t/using-gradle-2-10s-antlr-plugin-to-import-an-antlr-4-lexer-grammar-into-another-grammar/14970/8
+    arguments << "-lib" << "src/main/antlr/simpleexpr"
 }
 
 test {
-    useJUnitPlatform()
+    useTestNG() {
+        useDefaultListeners = true
+    }
 }
