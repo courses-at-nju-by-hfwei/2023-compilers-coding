@@ -10,6 +10,21 @@ public class DragonLexer extends Lexer {
   @Override
   public Token nextToken() {
     // add code below for WS, ID, INT (NUMBER)
+    if (peek == EOF) {
+      return Token.EOF;
+    }
+
+    if (Character.isWhitespace(peek)) {
+      return WS();
+    }
+
+    if (Character.isLetter(peek)) {
+      return ID();
+    }
+
+    if (Character.isDigit(peek)) {
+      return INT();
+    }
 
     // add code below for relop
 
@@ -21,14 +36,28 @@ public class DragonLexer extends Lexer {
 
   private Token WS() {
     // add code below
+    while (Character.isWhitespace(peek)) {
+      advance();
+    }
 
     return Token.WS;
   }
 
   private Token ID() {
     // add code below
+    StringBuilder sb = new StringBuilder();
 
-    return null;
+    do {
+      sb.append(peek);
+      advance();
+    } while (Character.isLetterOrDigit(peek));
+
+    Token token = this.kwTable.getKeyword(sb.toString());
+    if (token == null) {
+        return new Token(TokenType.ID, sb.toString());
+    }
+
+    return token;
   }
 
   private Token INT() {

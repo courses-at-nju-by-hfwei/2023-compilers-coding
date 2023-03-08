@@ -10,15 +10,18 @@ public enum TokenType {
   UNKNOWN,
 
   // Group 1
+  // lookhead = 1 (LA(1))
   IF, ELSE,
   ID,
   INT,
 
   // Group 2
   // =, <>, <, <=, >, >=
+  // LA(2)
   EQ, NE, LT, LE, GT, GE,
 
   // Group 3
+  // arbitrary LA
   REAL,
   SCI,
 }
