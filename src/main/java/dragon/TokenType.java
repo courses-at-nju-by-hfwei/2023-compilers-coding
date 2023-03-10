@@ -24,4 +24,6 @@ public enum TokenType {
   // arbitrary LA
   REAL,
   SCI,
+
+  DOT, POS, NEG,
 }

@@ -13,6 +13,9 @@ public class Token {
   public static final Token LE = new Token(TokenType.LE, "<=");
   public static final Token GT = new Token(TokenType.GT, ">");
   public static final Token GE = new Token(TokenType.GE, ">=");
+  public static final Token DOT = new Token(TokenType.DOT, ".");
+  public static final Token POS = new Token(TokenType.POS, "+");
+  public static final Token NEG = new Token(TokenType.NEG, "-");
 
   private final TokenType type;
   private final String text;

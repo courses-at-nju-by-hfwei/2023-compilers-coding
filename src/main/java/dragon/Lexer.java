@@ -3,7 +3,7 @@ package dragon;
 public abstract class Lexer {
   public static final char EOF = (char) -1;
 
-  private final String input;
+  final String input;
   char peek;
   int pos;
 
