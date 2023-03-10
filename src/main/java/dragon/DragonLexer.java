@@ -1,10 +1,11 @@
 package dragon;
 
 public class DragonLexer extends Lexer {
-  private int lastMatchPos = -1;
+  // the last match position (beyond one)
+  private int lastMatchPos = 0;
 
-  // the longest match: position and tokenType
-  int longestPrefixPos = -1;
+  // the longest match: position (beyond one) and token type
+  int longestPrefixPos = 0;
   TokenType longestPrefixTokenType = null;
 
   private final KeywordTable kwTable = new KeywordTable();
@@ -62,7 +63,7 @@ public class DragonLexer extends Lexer {
       advance();
     }
 
-    this.lastMatchPos = pos - 1;
+    this.lastMatchPos = pos;
     return token;
   }
 
@@ -151,7 +152,7 @@ public class DragonLexer extends Lexer {
   private Token backToTheLongestMatch() {
     this.reset(longestPrefixPos);
     return new Token(longestPrefixTokenType,
-        this.input.substring(this.lastMatchPos + 1, this.pos));
+        this.input.substring(this.lastMatchPos, this.pos));
   }
 
   private Token WS() {
