@@ -67,7 +67,6 @@ public class DragonLexer extends Lexer {
   }
 
   private Token NUMBER() {
-
     advance();
     int state = 13;
     while (true) {
