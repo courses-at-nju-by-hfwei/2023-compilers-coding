@@ -77,7 +77,6 @@ public class DragonLexer extends Lexer {
 
           if (Character.isDigit(peek)) {
             advance();
-            state = 13;
             break;
           } else if (peek == '.') {
             advance();
@@ -105,9 +104,8 @@ public class DragonLexer extends Lexer {
 
           if (Character.isDigit(peek)) {
             advance();
-            state = 15;
             break;
-          } else if (peek == 'E' || peek == 'e') {
+          } else if (peek == 'E') {
             advance();
             state = 16;
             break;
@@ -140,7 +138,6 @@ public class DragonLexer extends Lexer {
 
           if (Character.isDigit(peek)) {
             advance();
-            state = 18;
             break;
           } else { // an SCI
             return backToTheLongestMatch();
