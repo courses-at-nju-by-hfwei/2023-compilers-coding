@@ -1,3 +1,6 @@
+123.45E+xyz
+123E+
+123E+x
 123>122.57
 123.45E-67
 123.45-67
@@ -8,7 +11,6 @@
 123.45E
 123.45E+
 123.45E+67
-123.45E+xyz
 
   hello  if world else ifhappy
 helloworld

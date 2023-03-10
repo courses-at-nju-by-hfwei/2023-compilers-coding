@@ -23,9 +23,36 @@ public class DragonLexer extends Lexer {
     }
 
     if (Character.isDigit(peek)) {
-      return INT();
+      return NUMBER();
     }
 
+    if (peek == '=') {
+      advance();
+      return Token.EQ;
+    }
+
+    if (peek == '<') {
+      advance();
+      if (peek == '=') {
+        advance();
+        return Token.LE;
+      } else if (peek == '>') {
+        advance();
+        return Token.NE;
+      } else {
+        return Token.LT;
+      }
+    }
+
+    if (peek == '>') {
+      advance();
+      if (peek == '=') {
+        advance();
+        return Token.GE;
+      } else {
+        return Token.GT;
+      }
+    }
     // add code below for relop
 
     // unknown tokens (characters)
@@ -62,8 +89,14 @@ public class DragonLexer extends Lexer {
 
   private Token INT() {
     // add code below
+    StringBuilder sb = new StringBuilder();
 
-    return null;
+    do {
+      sb.append(peek);
+      advance();
+    } while (Character.isDigit(peek));
+
+    return new Token(TokenType.INT, sb.toString());
   }
 
   private Token NUMBER() {
@@ -72,106 +105,126 @@ public class DragonLexer extends Lexer {
     advance();
 
     // add code below for recording positions
+    int longestPrefixPos = -1;
+    TokenType type = null;
 
     // add code below for storing scanned characters
+    StringBuilder realStr = new StringBuilder();
+    StringBuilder sciStr = new StringBuilder();
 
     int state = 13;
     while (true) {
       switch (state) {
         case 13:
+          longestPrefixPos = pos;
+          type = TokenType.INT;
+
           if (Character.isDigit(peek)) {
             // add code below for recording scanned characters
+            intStr.append(peek);
 
             advance();
             state = 13;
             break;
           } else if (peek == '.') {
             // add code below for recording scanned characters
+            realStr.append(peek);
 
             advance();
             state = 14;
             break;
           } else if (peek == 'E' || peek == 'e') {
             // add code below for recording scanned characters
+            sciStr.append(peek);
 
             advance();
             state = 16;
             break;
           } else {
             // add code for recognizing and returning an INT
-            return null;
+            return new Token(TokenType.INT, intStr.toString());
           }
         case 14:
           if (Character.isDigit(peek)) {
             // add code below for recording scanned characters
+            realStr.append(peek);
 
             advance();
             state = 15;
             break;
           } else {
             // add code below for resetting positions and recognizing an INT
-
-            return null;
+            this.reset(longestPrefixPos);
+            return new Token(type, intStr.toString());
           }
         case 15:
           // add code below for recording positions
+          longestPrefixPos = pos;
+          type = TokenType.REAL;
 
           if (Character.isDigit(peek)) {
             // add code below for recording scanned characters
+            realStr.append(peek);
 
             advance();
             state = 15;
             break;
-          } else if (peek == 'E') {
+          } else if (peek == 'E' || peek == 'e') {
             // add code below for recording scanned characters
+            sciStr.append(peek);
 
             advance();
             state = 16;
             break;
           } else {
             // add code for recognizing and returning a REAL
-            return null;
+            return new Token(TokenType.REAL, intStr.append(realStr).toString());
           }
         case 16:
           if (peek == '+' || peek == '-') {
             // add code below for recording scanned characters
+            sciStr.append(peek);
 
             advance();
             state = 17;
             break;
           } else if (Character.isDigit(peek)) {
             // add code below for recording scanned characters
+            sciStr.append(peek);
 
             advance();
             state = 18;
             break;
           } else {
             // add code below for resetting positions and recognizing an INT
-
-            return null;
+            this.reset(longestPrefixPos);
+            return new Token(type, intStr.append(realStr).toString());
           }
         case 17:
           if (Character.isDigit(peek)) {
             // add code below for recording scanned characters
+            sciStr.append(peek);
 
             advance();
             state = 18;
             break;
           } else {
-            // add code below for resetting positions and recognizing an INT
-
-            return null;
+            // add code below for resetting positions and recognizing an REAL
+            this.reset(longestPrefixPos);
+            return new Token(TokenType.REAL, intStr.append(realStr).toString());
           }
         case 18:
           if (Character.isDigit(peek)) {
             // add code below for recording scanned characters
+            sciStr.append(peek);
 
             advance();
             state = 18;
             break;
           } else {
             // add code for recognizing and returning an SCI
-            return null;
+            return new Token(TokenType.REAL,
+                intStr.append(realStr).append(sciStr).toString());
           }
         default:
           System.err.println("Unreachable");
