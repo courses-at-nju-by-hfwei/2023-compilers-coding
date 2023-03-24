@@ -13,10 +13,14 @@ package cymbol;
 ////////////////////////////////////////////
 prog : (varDecl | functionDecl)* EOF ;
 
+//varDecl : type ID ';'
+//        | type ID '=' expr ';'
+//        ;
 varDecl : type ID ('=' expr)? ';' ;
 
 type : 'int' | 'double' | 'void' ;
 
+// type ID, type ID, type ID, ...
 functionDecl : type ID '(' formalParameters? ')' block ;
 
 formalParameters : formalParameter (',' formalParameter)* ;
@@ -25,49 +29,29 @@ formalParameter : type ID ;
 
 block : '{' stat* '}' ;
 
-stat : block
-     | varDecl
-     | 'if' expr 'then' stat ('else' stat)?
-     | 'return' expr? ';'
-     | expr '=' expr ';'
-     | expr ';'
+stat : block    # BlockStat
+     | varDecl  # VarDeclStat
+     | 'if' expr 'then' stat ('else' stat)? # IfStat
+     | 'return' expr? ';'   # ReturnStat
+     | expr '=' expr ';'    # AssignStat
+     | expr ';'             # ExprStat
      ;
-
-expr: ID '(' exprList? ')'
-    | expr '[' expr ']'
-    | '-' expr
-    | '!' expr
-    | expr '^' expr
-    | expr ('*' | '/') expr
-    | expr ('+' | '-') expr
-    | expr ('==' | '!=') expr
-    | '(' expr ')'
-    | ID
-    | INT
+////////////////////////////////////////////
+expr: ID '(' exprList? ')'    # Call // function call
+    | expr '[' expr ']'       # Index // array subscripts
+    | op = '-' expr           # Negate // right association
+    | op = '!' expr           # Not // right association
+    | <assoc = right> expr '^' expr # Power
+    | lhs = expr (op = '*' | op = '/') rhs = expr     # MultDiv
+    | lhs = expr (op = '+' | op = '-') rhs = expr     # AddSub
+    | lhs = expr (op = '==' | op = '!=') rhs = expr   # EQNE
+    | '(' expr ')'            # Parens
+    | ID                      # Id
+    | INT                     # Int
     ;
 
 exprList : expr (',' expr)* ;
-////////////////////////////////////////////
-//expr: ID '(' exprList? ')'    # Call // function call
-//    | expr '[' expr ']'       # Index // array subscripts
-//    | op = '-' expr           # Negate // right association
-//    | op = '!' expr           # Not // right association
-//    | <assoc = right> expr '^' expr # Power
-//    | lhs = expr (op = '*' | op = '/') rhs = expr     # MultDiv
-//    | lhs = expr (op = '+' | op = '-') rhs = expr     # AddSub
-//    | lhs = expr (op = '==' | op = '!=') rhs = expr   # EQNE
-//    | '(' expr ')'            # Parens
-//    | ID                      # Id
-//    | INT                     # Int
-//    ;
 
-//stat : block    # BlockStat
-//     | varDecl  # VarDeclStat
-//     | 'if' expr 'then' stat ('else' stat)? # IfStat
-//     | 'return' expr? ';'   # ReturnStat
-//     | expr '=' expr ';'    # AssignStat
-//     | expr ';'             # ExprStat
-//     ;
 ////////////////////////////////////////////
 // You can use "Alt + Insert" to automatically generate
 // the following lexer rules for literals in the grammar above.
