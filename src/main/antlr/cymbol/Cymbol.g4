@@ -41,7 +41,7 @@ expr: ID '(' exprList? ')'    # Call // function call
     | expr '[' expr ']'       # Index // array subscripts
     | op = '-' expr           # Negate // right association
     | op = '!' expr           # Not // right association
-    | <assoc = right> expr '^' expr # Power
+    | <assoc = right> lhs = expr '^' rhs = expr # Power
     | lhs = expr (op = '*' | op = '/') rhs = expr     # MultDiv
     | lhs = expr (op = '+' | op = '-') rhs = expr     # AddSub
     | lhs = expr (op = '==' | op = '!=') rhs = expr   # EQNE
