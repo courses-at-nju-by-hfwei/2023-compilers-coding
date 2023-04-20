@@ -13,21 +13,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-public class ExprAGTest {
+public class CSVAGTest {
   InputStream is = System.in;
 
   @BeforeMethod
   public void setUp() throws IOException {
-    is = new FileInputStream(Path.of("src/test/antlr/ag/expr.txt").toFile());
+    is = new FileInputStream(Path.of("src/test/antlr/ag/csv.txt").toFile());
+  }
+
+  @AfterMethod
+  public void tearDown() {
   }
 
   @Test
-  public void testExprAG() throws IOException {
+  public void testCSVAG() throws IOException {
     CharStream input = CharStreams.fromStream(is);
-    ExprAGLexer lexer = new ExprAGLexer(input);
+    CSVAGLexer lexer = new CSVAGLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-    ExprAGParser parser = new ExprAGParser(tokens);
-    parser.prog();
+    CSVAGParser parser = new CSVAGParser(tokens);
+    parser.file();
   }
 }
