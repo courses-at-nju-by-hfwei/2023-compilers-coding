@@ -11,9 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import ag.type.VarsDeclStarAGLexer;
-import ag.type.VarsDeclStarAGParser;
-
 public class PostfixExprAGTest {
   InputStream is = System.in;
 
