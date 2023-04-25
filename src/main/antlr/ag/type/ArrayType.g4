@@ -10,7 +10,7 @@ arrayType : '[' INT ']' arrayType      # NonEmptyArrayType
           |                            # EmptyArrayType
           ;
 
-basicType : 'int' | 'double' ;
+basicType : 'int' | 'float' ;
 
 ID : [a-z]+ ;
 INT : [0-9]+ ;

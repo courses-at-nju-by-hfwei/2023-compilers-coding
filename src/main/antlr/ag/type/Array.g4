@@ -12,7 +12,7 @@ stat : varDecl                         # VarDeclStat
      ;
 
 varDecl : basicType ID ';' ;
-basicType : 'int' | 'double' ;
+basicType : 'int' | 'float' ;
 
 // OR: type ID ('[' INT ']')* ';'
 arrDecl : basicType ID arrayType ';' ;
@@ -21,8 +21,8 @@ arrayType : '[' INT ']' arrayType      # NonEmptyArrayType
           ;
 
 expr: primary = expr '[' subscript = expr ']'   # ArraySubscriptExpr
-    | ID                            # IdExpr
-    | INT                           # IntExpr
+    | ID                                        # IdExpr
+    | INT                                       # IntExpr
     ;
 
 ID : [a-z]+ ;

@@ -4,14 +4,13 @@ grammar PostfixExprAG;
 package ag;
 }
 
-stat : expr { System.out.println($expr.postfix); }
-     ;
+stat : expr ;
 
-expr returns [String postfix]
-  : l = expr op = '*' r = expr { $postfix = $l.postfix + $r.postfix + $op.text; }
-  | l = expr op = '+' r = expr { $postfix = $l.postfix + $r.postfix + $op.text; }
-  | '(' expr ')'               { $postfix = $expr.postfix; }
-  | INT                        { $postfix = $INT.text; }
+expr
+  : l = expr op = '*' r = expr
+  | l = expr op = '+' r = expr
+  | '(' expr ')'
+  | INT
   ;
 
 INT : [0-9]+ ;
