@@ -6,7 +6,6 @@ import java.util.*;
 }
 
 @parser::members {
-private Map<String, String> typeMap = new HashMap<>();
 }
 
 prog : stat* EOF ;
@@ -20,10 +19,15 @@ varDecl : basicType ID ';' ;
 basicType : 'int' | 'float' ;
 
 // OR: type ID ('[' INT ']')* ';'
-arrDecl : basicType ID arrayType ';' ;
-arrayType : '[' INT ']' arrayType
-          |
-          ;
+arrDecl : basicType ID arrayType[$basicType.text]
+  { System.out.println($ID.text + " : " + $arrayType.array_type); } ';' ;
+
+arrayType[String basic_type]
+    returns [String array_type]
+  : '[' INT ']' arrayType[$basic_type]
+     { $array_type = "(" + $INT.int + ", " + $arrayType.array_type + ")"; }
+  |  { $array_type = $basic_type; }
+  ;
 
 // primary = expr '[' subscript = expr ']'
 expr: ID ('[' subscript = expr ']')+
