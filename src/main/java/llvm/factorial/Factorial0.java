@@ -11,7 +11,7 @@ import org.bytedeco.javacpp.PointerPointer;
 import org.bytedeco.llvm.LLVM.*;
 import static org.bytedeco.llvm.global.LLVM.*;
 
-public class factorial0 {
+public class Factorial0 {
   public static void main(String[] args) {
     LLVMInitializeCore(LLVMGetGlobalPassRegistry());
     LLVMLinkInMCJIT();
@@ -19,7 +19,7 @@ public class factorial0 {
     LLVMInitializeNativeAsmParser();
     LLVMInitializeNativeTarget();
 
-    LLVMModuleRef module = LLVMModuleCreateWithName("factorial0");
+    LLVMModuleRef module = LLVMModuleCreateWithName("Factorial0");
     LLVMBuilderRef builder = LLVMCreateBuilder();
     LLVMTypeRef i32Type = LLVMInt32Type();
 

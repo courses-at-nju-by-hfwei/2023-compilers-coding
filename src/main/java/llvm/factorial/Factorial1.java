@@ -5,7 +5,7 @@ import org.bytedeco.javacpp.PointerPointer;
 import org.bytedeco.llvm.LLVM.*;
 import static org.bytedeco.llvm.global.LLVM.*;
 
-public class factorial1 {
+public class Factorial1 {
     static void factorial1opt0() {
         LLVMInitializeCore(LLVMGetGlobalPassRegistry());
         LLVMLinkInMCJIT();
