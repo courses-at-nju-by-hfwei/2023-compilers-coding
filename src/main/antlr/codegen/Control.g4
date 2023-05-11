@@ -7,7 +7,7 @@ package codegen;
 prog : stat ;
 
 stat : ID '=' expr ';'                      # AssignStat
-     | 'if' '(' bool ')' '{' ifStat = stat '}' 'else' '{' elseStat = stat '}'      # IfElseStat
+     | 'if' '(' bool ')' '{' ifStat = stat '}' 'else' '{' elseStat = stat '}' # IfElseStat
      | 'if' '(' bool ')' '{' stat '}'       # IfStat
      | 'while' '(' bool ')' '{' stat '}'    # WhileStat
      | 'break' ';'                          # BreakStat

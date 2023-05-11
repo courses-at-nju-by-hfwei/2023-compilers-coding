@@ -1,31 +1,24 @@
 t1 = true
-t2 = false
-t3 = AND t1 t2
-t4 = true
-t5 = AND t3 t4
-t6 = false
-t7 = NOT t6
-t8 = true
-t9 = NOT t8
-t10 = AND t7 t9
-t11 = OR t5 t10
-t12 = a
-t13 = 5
-t14 = icmp sge t12 t13
-t15 = NOT t14
-t16 = a
-t17 = b
-t18 = icmp eq t16 t17
-t19 = AND t15 t18
-t20 = OR t11 t19
-br t20 b.true b.false
-b.true:
-t21 = b
-a = t21
-t22 = c
-b = t22
-br b.next
-b.false:
-t23 = d
-c = t23
-b.next:
+br t1 b.true1 b.false2
+b.true1:
+t2 = b
+a = t2
+t3 = c
+b = t3
+t4 = false
+br t4 b.true4 b.false5
+b.true4:
+t5 = 1
+x = t5
+t6 = 2
+y = t6
+br b.end6
+b.false5:
+t7 = 3
+z = t7
+b.end6:
+br b.end3
+b.false2:
+t8 = d
+c = t8
+b.end3:

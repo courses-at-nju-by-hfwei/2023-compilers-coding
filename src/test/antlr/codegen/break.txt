@@ -1,4 +1,9 @@
 while (true) {
+  a = 1;
+  break;
+}
+
+while (true) {
   while (false) {
     if (true) {
       break;
@@ -6,5 +11,6 @@ while (true) {
     a = 1;
   }
   a = 2;
+  break;
 }
 a = 3;

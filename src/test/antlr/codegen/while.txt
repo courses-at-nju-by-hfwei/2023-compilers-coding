@@ -1,4 +1,9 @@
-while (a > b && false && true) {
+while (true) {
   a = 1;
+  if (true) {
+    b = 2;
+  } else {
+    c = 3;
+  }
 }
-a = 2;
+d = 4;

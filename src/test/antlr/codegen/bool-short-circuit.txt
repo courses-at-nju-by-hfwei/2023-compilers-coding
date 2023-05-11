@@ -1,4 +1,4 @@
-while (a > b && false && true) {
+if (true && false) {
   a = 1;
 }
-a = 2;
+b = 2;

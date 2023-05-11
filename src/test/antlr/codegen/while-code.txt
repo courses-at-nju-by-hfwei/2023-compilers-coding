@@ -1,14 +1,20 @@
-begin:
-t1 = a
-t2 = b
-t3 = icmp sgt t1 t2
-t4 = false
-t5 = AND t3 t4
-br t5 b.true b.false
-b.true:
-t6 = 1
-a = t6
-br begin
-b.false:
-t7 = 2
-a = t7
+begin1
+t1 = true
+br t1 b.true2 b.false3
+b.true2:
+t2 = 1
+a = t2
+t3 = true
+br t3 b.true4 b.false5
+b.true4:
+t4 = 2
+b = t4
+br b.end6
+b.false5:
+t5 = 3
+c = t5
+b.end6:
+br begin1
+b.false3:
+t6 = 4
+d = t6
