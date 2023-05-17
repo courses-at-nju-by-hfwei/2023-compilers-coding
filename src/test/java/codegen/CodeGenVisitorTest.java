@@ -13,15 +13,17 @@ import java.io.InputStream;
 import java.nio.file.Path;
 
 public class CodeGenVisitorTest {
-  InputStream is = System.in;
+  private InputStream is = System.in;
+  private final String PATH = "src/test/antlr/codegen/control-flow-I/";
+  private String srcFile;
+  private String codeFile;
 
   @BeforeMethod
   public void setUp() throws IOException {
-//    is = new FileInputStream(Path.of("src/test/antlr/codegen/bool.txt").toFile());
-//    is = new FileInputStream(Path.of("src/test/antlr/codegen/if.txt").toFile());
-//    is = new FileInputStream(Path.of("src/test/antlr/codegen/while.txt").toFile());
-//    is = new FileInputStream(Path.of("src/test/antlr/codegen/break.txt").toFile());
-    is = new FileInputStream(Path.of("src/test/antlr/codegen/bool-short-circuit.txt").toFile());
+    // bool.txt, if.txt, while.txt, break.txt, bool-short-circuit.txt
+    // while-if-II.txt, bool-short-circuit-II.txt
+    srcFile = "while-if-II";
+    is = new FileInputStream(Path.of(PATH + srcFile + ".txt").toFile());
   }
 
   @Test
@@ -33,11 +35,8 @@ public class CodeGenVisitorTest {
     ControlParser parser = new ControlParser(tokens);
     ParseTree tree = parser.prog();
 
-//    CodeGenVisitor cg = new CodeGenVisitor("src/test/antlr/codegen/bool-code.txt");
-//    CodeGenVisitor cg = new CodeGenVisitor("src/test/antlr/codegen/if-code.txt");
-//    CodeGenVisitor cg = new CodeGenVisitor("src/test/antlr/codegen/while-code.txt");
-//    CodeGenVisitor cg = new CodeGenVisitor("src/test/antlr/codegen/break-code.txt");
-    CodeGenVisitor cg = new CodeGenVisitor("src/test/antlr/codegen/bool-short-circuit-code.txt");
+    codeFile = srcFile + "-code";
+    CodeGenVisitor cg = new CodeGenVisitor(PATH + codeFile + ".txt");
     cg.visit(tree);
   }
 }
