@@ -16,9 +16,16 @@ import java.nio.file.Path;
 public class CodeGenListenerTest {
   InputStream is = System.in;
 
+  private final String PATH = "src/test/antlr/codegen/control-flow-II/";
+  private String srcFile;
+  private String codeFile;
+
   @BeforeMethod
   public void setUp() throws IOException {
-    is = new FileInputStream(Path.of("src/test/antlr/codegen/if.txt").toFile());
+    // bool.txt, if.txt, while.txt, bool-short-circuit.txt
+    // while-if-II.txt, bool-short-circuit-II.txt
+    srcFile = "bool-short-circuit-II";
+    is = new FileInputStream(Path.of(PATH + srcFile + ".txt").toFile());
   }
 
   @Test
@@ -30,7 +37,8 @@ public class CodeGenListenerTest {
     ControlParser parser = new ControlParser(tokens);
     ParseTree tree = parser.prog();
 
-    CodeGenListener cg = new CodeGenListener("src/test/antlr/codegen/if-code.txt");
+    codeFile = srcFile + "-code";
+    CodeGenListener cg = new CodeGenListener(PATH + codeFile + ".txt");
     ParseTreeWalker walker = new ParseTreeWalker();
     walker.walk(cg, tree);
   }
