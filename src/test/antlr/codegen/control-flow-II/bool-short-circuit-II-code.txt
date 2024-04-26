@@ -4,3 +4,4 @@ goto L1
 L2:
 ASSIGN
 L1:
+
